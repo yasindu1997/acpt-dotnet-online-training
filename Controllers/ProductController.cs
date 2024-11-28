@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EcommerceApi.Data;
+using EcommerceApi.dto;
 using EcommerceApi.Models;
+using EcommerceApi.service;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,64 +17,66 @@ namespace EcommerceApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private ProductContext context;
 
-        public ProductController(ProductContext context)
+        private ProductService service;
+
+        public ProductController(ProductService service)
         {
-            this.context = context;
+            this.service = service;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> SaveProduct(Product product)
+        public async Task<ActionResult<ProductDto>> SaveProduct(ProductDto product)
         {
-            context.Add(product);
-            await context.SaveChangesAsync();
-
-            return product;
-
+            ProductDto productDto = await service.SaveProduct(product);
+            return Created("/api/Product/" + productDto.Id, productDto);
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await context.Products.ToListAsync();
+            IEnumerable<ProductDto> enumerable = await service.GetProducts();
+            return Ok(enumerable);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProducts(int id)
         {
-            var product = await context.Products.FindAsync(id);
+            // var product = await context.Products.FindAsync(id);
 
-            if (product == null)
-            {
-                return NotFound();
-            }
+            // if (product == null)
+            // {
+            //     return NotFound();
+            // }
 
-            return product;
+            // return product;
+            return null;
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
-            Product product = await context.Products.FindAsync(id);
+            // Product product = await context.Products.FindAsync(id);
 
-            if (product == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                context.Products.Remove(product);
-                await context.SaveChangesAsync();
-                return Ok(new {message = "Deleted !"});
-            }
+            // if (product == null)
+            // {
+            //     return NotFound();
+            // }
+            // else
+            // {
+            //     context.Products.Remove(product);
+            //     await context.SaveChangesAsync();
+            //     return Ok(new { message = "Deleted !" });
+            // }
+
+            return null;
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Product>> UpdateProduct(int id, Product product){
-            //check a data, a row is exists by this id
-            //then update
-        }
+        // [HttpPut("{id}")]
+        // public async Task<ActionResult<Product>> UpdateProduct(int id, Product product){
+        //     check a data, a row is exists by this id
+        //     then update
+        // }
 
     }
 }
