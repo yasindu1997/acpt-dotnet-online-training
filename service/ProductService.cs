@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EcommerceApi.dto;
 using EcommerceApi.Models;
 using EcommerceApi.Data;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
-using System.Data.SqlTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApi.service
