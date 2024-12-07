@@ -7,7 +7,7 @@ namespace EcommerceApi.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly TokenService _tokenService;
+        private TokenService _tokenService;
 
         public AuthController(TokenService tokenService)
         {

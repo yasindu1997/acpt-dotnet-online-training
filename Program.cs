@@ -38,6 +38,7 @@ builder.Services.AddDbContext<ProductContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 
