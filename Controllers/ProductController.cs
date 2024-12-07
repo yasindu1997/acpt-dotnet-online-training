@@ -1,6 +1,7 @@
 using EcommerceApi.dto;
 using EcommerceApi.Models;
 using EcommerceApi.service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceApi.Controllers
@@ -17,6 +18,7 @@ namespace EcommerceApi.Controllers
             this.service = service;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ProductDto>> SaveProduct(ProductDto product)
         {
